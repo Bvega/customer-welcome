@@ -7,10 +7,22 @@ function createCustomer(customer) {
         return `Welcome, ${customer.name}!`;
     }
 }
-const customer1 = {
-    id: 101,
-    name: "Alice Smith",
-    email: "alice@example.com",
-    loyaltyMember: true
+// Wait for the page to load before attaching event listeners
+window.onload = () => {
+    const form = document.getElementById("customerForm");
+    const message = document.getElementById("message");
+    form.onsubmit = (event) => {
+        event.preventDefault();
+        const idInput = document.getElementById("id").value;
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const loyaltyMember = document.getElementById("loyaltyMember").checked;
+        const customer = {
+            id: isNaN(Number(idInput)) ? idInput : Number(idInput),
+            name,
+            email,
+            loyaltyMember,
+        };
+        message.textContent = createCustomer(customer);
+    };
 };
-console.log(createCustomer(customer1));
